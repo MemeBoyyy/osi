@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Конспект по модели OSI</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: #eef1f5;
+    color: #2b2b2b;
+    line-height: 1.7;
+    padding: 40px 16px;
+  }
+
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 50px 60px;
+    border-radius: 6px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  h1 {
+    font-size: 32px;
+    text-align: center;
+    color: #1a2b4a;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+  }
+
+  .subtitle {
+    text-align: center;
+    color: #7a8699;
+    font-style: italic;
+    font-size: 15px;
+    margin-bottom: 40px;
+    padding-bottom: 25px;
+    border-bottom: 2px solid #e3e8ef;
+  }
+
+  h2 {
+    font-size: 22px;
+    color: #1a2b4a;
+    margin: 38px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #dfe5ee;
+  }
+
+  h3 {
+    font-size: 18px;
+    color: #2c4a7c;
+    margin: 26px 0 10px;
+  }
+
+  p {
+    margin-bottom: 14px;
+    text-align: justify;
+  }
+
+  ul {
+    margin: 12px 0 18px 24px;
+  }
+
+  li {
+    margin-bottom: 8px;
+  }
+
+  .levels {
+    list-style: none;
+    margin: 20px 0 0 0;
+    counter-reset: level;
+  }
+
+  .levels > li {
+    background: #f6f8fb;
+    border-left: 4px solid #4a6fa5;
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin-bottom: 14px;
+    counter-increment: level;
+  }
+
+  .levels > li::before {
+    content: counter(level);
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    background: #4a6fa5;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 10px;
+    vertical-align: middle;
+    font-family: Arial, sans-serif;
+  }
+
+  .levels > li > strong {
+    font-size: 17px;
+    color: #1a2b4a;
+    vertical-align: middle;
+  }
+
+  .levels p {
+    margin-top: 10px;
+    margin-bottom: 6px;
+  }
+
+  .mnemonic {
+    background: #fff8e6;
+    border-left: 4px solid #d9a441;
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin: 16px 0;
+  }
+
+  .encapsulation {
+    background: #1e2a3a;
+    color: #d6e2f0;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    padding: 20px 24px;
+    border-radius: 6px;
+    margin: 18px 0;
+    line-height: 1.9;
+    overflow-x: auto;
+  }
+
+  .encapsulation div {
+    white-space: nowrap;
+  }
+
+  .encapsulation .arrow {
+    color: #6fa8dc;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 18px 0;
+    font-size: 15px;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 1px solid #e3e8ef;
+  }
+
+  th {
+    background: #4a6fa5;
+    color: #fff;
+    font-weight: normal;
+    letter-spacing: 0.3px;
+  }
+
+  tr:nth-child(even) td {
+    background: #f6f8fb;
+  }
+
+  .qa {
+    background: #f0f4f9;
+    border-radius: 6px;
+    padding: 20px 24px;
+    margin-top: 16px;
+  }
+
+  .qa p {
+    margin-bottom: 12px;
+    text-align: left;
+  }
+
+  .qa p:last-child {
+    margin-bottom: 0;
+  }
+
+  .qa .question {
+    font-weight: bold;
+    color: #1a2b4a;
+  }
+
+  @media (max-width: 600px) {
+    .container {
+      padding: 30px 22px;
+    }
+    h1 {
+      font-size: 24px;
+    }
+    h2 {
+      font-size: 19px;
+    }
+    .encapsulation {
+      font-size: 12px;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1>Конспект по модели OSI</h1>
+  <p class="subtitle">Эталонная модель взаимодействия открытых систем</p>
+
+  <h2>Что такое OSI</h2>
+  <p>OSI (Open Systems Interconnection) — это эталонная модель взаимодействия открытых систем. Она была разработана международной организацией по стандартизации ISO в 1984 году. Главная цель модели — создать единый стандарт, по которому разные сетевые устройства смогут взаимодействовать друг с другом независимо от производителя.</p>
+  <p>Модель делит весь процесс передачи данных на семь уровней. Каждый уровень отвечает за свою часть работы и обращается только к соседним уровням. Такой подход позволяет упростить разработку, диагностику и понимание сетей.</p>
+  <p>Основные принципы модели:</p>
+  <ul>
+    <li>Каждый уровень решает строго свою задачу.</li>
+    <li>Уровень пользуется услугами нижнего уровня и предоставляет услуги верхнему.</li>
+    <li>При передаче данные спускаются по уровням вниз и инкапсулируются, при приёме поднимаются вверх и декапсулируются.</li>
+    <li>Логически взаимодействуют между собой одинаковые уровни на разных устройствах.</li>
+  </ul>
+
+  <h2>Семь уровней модели</h2>
+  <ol class="levels">
+    <li>
+      <strong>Прикладной уровень</strong>
+      <p>Это самый верхний уровень. Он обеспечивает интерфейс между пользователем или программой и сетью. Здесь работают такие протоколы, как HTTP, FTP, SMTP, DNS, SSH. Единица данных на этом уровне называется данные.</p>
+    </li>
+    <li>
+      <strong>Уровень представления</strong>
+      <p>Отвечает за форму, в которой информация передаётся по сети. Здесь выполняется кодирование, сжатие и шифрование данных. Примеры форматов и технологий: JPEG, ASCII, UTF-8, частично TLS и SSL. Единица данных также данные.</p>
+    </li>
+    <li>
+      <strong>Сеансовый уровень</strong>
+      <p>Управляет установкой, поддержанием и завершением сеансов связи между устройствами. Здесь задаются контрольные точки и синхронизация. Примеры протоколов: RPC, NetBIOS, L2TP. Единица данных данные.</p>
+    </li>
+    <li>
+      <strong>Транспортный уровень</strong>
+      <p>Обеспечивает доставку данных от процесса к процессу, то есть от конкретной программы на одном устройстве к конкретной программе на другом. Здесь выполняются сегментация, нумерация, контроль потока и исправление ошибок. Основные протоколы этого уровня — TCP, который гарантирует надёжную доставку, и UDP, который работает быстрее, но без гарантий. Единица данных сегмент для TCP и дейтаграмма для UDP.</p>
+    </li>
+    <li>
+      <strong>Сетевой уровень</strong>
+      <p>Занимается логической адресацией и маршрутизацией. Именно здесь определяется, по какому пути пакет попадёт из одной сети в другую. Основной протокол IP, также сюда относятся ICMP, ARP, OSPF, BGP. Единица данных пакет. Работает на этом уровне маршрутизатор.</p>
+    </li>
+    <li>
+      <strong>Канальный уровень</strong>
+      <p>Отвечает за доставку данных внутри одной сети, а также за физическую адресацию через MAC-адреса. Здесь выполняется обнаружение и исправление ошибок, возникших на физическом уровне. Протоколы: Ethernet, Wi-Fi, PPP. Единица данных кадр. Устройства: коммутаторы, мосты, сетевые карты. Этот уровень делится на два подуровня — LLC и MAC.</p>
+    </li>
+    <li>
+      <strong>Физический уровень</strong>
+      <p>Самый нижний уровень. Он передаёт отдельные биты по физической среде: по кабелю, оптоволокну или радиоканалу. Здесь важны кодирование сигнала, разъёмы, напряжение и скорость передачи. Единица данных бит. Устройства: концентраторы, повторители, кабели.</p>
+    </li>
+  </ol>
+
+  <h2>Мнемоника для запоминания</h2>
+  <div class="mnemonic">
+    <p>Чтобы запомнить порядок уровней сверху вниз, можно использовать фразу: Прикладной, Представления, Сеансовый, Транспортный, Сетевой, Канальный, Физический.</p>
+    <p>Для запоминания снизу вверх на английском часто используют фразу Please Do Not Throw Sausage Pizza Away, где первые буквы соответствуют Physical, Data Link, Network, Transport, Session, Presentation, Application.</p>
+  </div>
+
+  <h2>Инкапсуляция данных</h2>
+  <p>При передаче данные проходят путь от верхнего уровня к нижнему и на каждом уровне обрастают служебной информацией:</p>
+  <div class="encapsulation">
+    <div>На прикладном уровне это просто данные.</div>
+    <div>На транспортном добавляется заголовок TCP, получается сегмент.</div>
+    <div>На сетевом добавляется заголовок IP, получается пакет.</div>
+    <div>На канальном добавляется заголовок MAC и концевик FCS, получается кадр.</div>
+    <div>На физическом всё превращается в поток битов.</div>
+  </div>
+  <p>На принимающей стороне процесс идёт в обратном порядке, и называется он декапсуляцией.</p>
+
+  <h2>Сравнение с моделью TCP/IP</h2>
+  <p>На практике чаще используется модель TCP/IP, в которой четыре уровня. Верхние три уровня OSI (прикладной, представления и сеансовый) объединяются в прикладной уровень. Транспортный остаётся транспортым. Сетевой становится межсетевым. А канальный и физический объединяются в уровень доступа к сети.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>OSI (7 уровней)</th>
+        <th>TCP/IP (4 уровня)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Прикладной, Представления, Сеансовый</td>
+        <td>Прикладной</td>
+      </tr>
+      <tr>
+        <td>Транспортный</td>
+        <td>Транспортный</td>
+      </tr>
+      <tr>
+        <td>Сетевой</td>
+        <td>Межсетевой (Internet)</td>
+      </tr>
+      <tr>
+        <td>Канальный, Физический</td>
+        <td>Доступа к сети</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Практическое значение модели</h2>
+  <p>Модель OSI полезна в нескольких вещах. Во первых, при диагностике сетей она помогает понять, на каком уровне возникла проблема: с кабелем, с портом, с IP-адресом или с приложением. Во вторых, при проектировании она позволяет разбить сложную задачу на отдельные модули. В третьих, она служит общим языком для описания сетей. В четвёртых, обеспечивает совместимость оборудования разных производителей.</p>
+
+  <h2>Частые вопросы</h2>
+  <div class="qa">
+    <p><span class="question">Почему уровней именно семь, а не пять.</span> Это теоретическое разделение, на практике в модели TCP/IP верхние три уровня объединены в один.</p>
+    <p><span class="question">На каком уровне работает коммутатор.</span> На канальном, то есть на втором.</p>
+    <p><span class="question">На каком уровне работает маршрутизатор.</span> На сетевом, то есть на третьем.</p>
+    <p><span class="question">Где работает TCP.</span> На транспортном уровне, четвёртом.</p>
+    <p><span class="question">Где находится HTTP.</span> На прикладном уровне, седьмом.</p>
+  </div>
+
+</div>
+</body>
+</html>
